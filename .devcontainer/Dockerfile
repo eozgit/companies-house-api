@@ -27,5 +27,9 @@ RUN if [ "${INSTALL_NODE}" = "true" ]; then su vscode -c "source /usr/local/shar
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 #     && apt-get -y install --no-install-recommends <your-package-list-here>
 
+# Download data files
+# RUN wget -P /workspace/setup/ "http://download.companieshouse.gov.uk/BasicCompanyDataAsOneFile-2020-12-01.zip"
+# RUN unzip *.zip
 
-
+# Install paclages
+# RUN pip install psycopg2 flask_sqlalchemy pylint-flask pylint-flask-sqlalchemy
