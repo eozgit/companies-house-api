@@ -2,7 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 
-class Basic(db.Model):
+class CompanyInfo(db.Model):
     company_name = db.Column(db.String(500))
     company_number = db.Column(db.String(50), primary_key=True)
     reg_address_care_of = db.Column(db.String(500))
@@ -61,4 +61,4 @@ class Basic(db.Model):
 
 
 def __repr__(self):
-    return '<Basic %r>' % self.company_name
+    return '<CompanyInfo %r>' % self.company_name
