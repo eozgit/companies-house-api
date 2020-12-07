@@ -4,7 +4,8 @@ db = SQLAlchemy()
 
 
 class Person(db.Model):
-    company_number = db.Column(db.String(50), primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    company_number = db.Column(db.String(50))
 
     # "address": {
     #     "address_line_1": "string",

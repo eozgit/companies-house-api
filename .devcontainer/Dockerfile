@@ -31,5 +31,8 @@ RUN if [ "${INSTALL_NODE}" = "true" ]; then su vscode -c "source /usr/local/shar
 # RUN wget -P /workspace/setup/ "http://download.companieshouse.gov.uk/BasicCompanyDataAsOneFile-2020-12-01.zip"
 # RUN unzip *.zip
 
-# Install paclages
-# RUN pip install psycopg2 flask_sqlalchemy pylint-flask pylint-flask-sqlalchemy
+# Install packages
+RUN pip install --upgrade pip
+RUN pip install psycopg2 flask_sqlalchemy pylint-flask pylint-flask-sqlalchemy flask_restx
+
+ENV PYTHONPATH=/workspace
