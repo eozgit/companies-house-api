@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-db = SQLAlchemy()
+from .orm import db
 
 
 class NatureOfControl(db.Model):

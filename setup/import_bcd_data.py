@@ -5,7 +5,7 @@ path = './setup/BasicCompanyDataAsOneFile-2020-12-01.csv'
 conn = psycopg2.connect('postgresql://postgres:postgres@localhost/postgres')
 cur = conn.cursor()
 copy_sql = """
-           COPY CompanyInfo FROM stdin WITH CSV HEADER
+           COPY company_info FROM stdin WITH CSV HEADER
            DELIMITER as ','
            """
 with open(path, 'r') as f:

@@ -1,7 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-import datetime
-db = SQLAlchemy()
-
+from .orm import db
 
 class Person(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -32,8 +30,7 @@ class Person(db.Model):
     # "ceased_on": "date",
     # "country_of_residence": "string", nullable
 
-    ceased_on = db.Column(db.DateTime, nullable=False,
-                          default=datetime.utcnow)
+    ceased_on = db.Column(db.DateTime, nullable=False)
     country_of_residence = db.Column(db.String(500))
 
     # "date_of_birth": { nullable
@@ -102,8 +99,7 @@ class Person(db.Model):
 
     # "notified_on": "date"
 
-    notified_on = db.Column(db.DateTime, nullable=False,
-                            default=datetime.utcnow)
+    notified_on = db.Column(db.DateTime, nullable=False)
 
 
 def __repr__(self):
