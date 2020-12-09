@@ -3,7 +3,7 @@ from .orm import db
 
 class Person(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    company_number = db.Column(db.String(50))
+    company_number = db.Column(db.String(10))
 
     # "address": {
     #     "address_line_1": "string",
@@ -17,21 +17,21 @@ class Person(db.Model):
     #     "region": "string"
     # },
 
-    address_line_1 = db.Column(db.String(500))
-    address_line_2 = db.Column(db.String(500))
-    address_care_of = db.Column(db.String(500))
-    address_country = db.Column(db.String(500))
-    address_locality = db.Column(db.String(500))
-    address_po_box = db.Column(db.String(500))
-    address_postal_code = db.Column(db.String(500))
-    address_premises = db.Column(db.String(500))
-    address_region = db.Column(db.String(500))
+    address_line_1 = db.Column(db.String(50))
+    address_line_2 = db.Column(db.String(50))
+    address_care_of = db.Column(db.String(50))
+    address_country = db.Column(db.String(50))
+    address_locality = db.Column(db.String(50))
+    address_po_box = db.Column(db.String(12))
+    address_postal_code = db.Column(db.String(12))
+    address_premises = db.Column(db.String(50))
+    address_region = db.Column(db.String(50))
 
     # "ceased_on": "date",
     # "country_of_residence": "string", nullable
 
-    ceased_on = db.Column(db.DateTime, nullable=False)
-    country_of_residence = db.Column(db.String(500))
+    ceased_on = db.Column(db.DateTime)
+    country_of_residence = db.Column(db.String(50))
 
     # "date_of_birth": { nullable
     #     "day": "integer",
@@ -45,7 +45,7 @@ class Person(db.Model):
 
     # "etag": "string",
 
-    etag = db.Column(db.String(500))
+    etag = db.Column(db.String(50))
 
     # "identification": { nullable
     #     "country_registered": "string", nullable
@@ -55,27 +55,27 @@ class Person(db.Model):
     #     "registration_number": "string" nullable
     # },
 
-    id_country_registered = db.Column(db.String(500))
-    id_legal_authority = db.Column(db.String(500))
-    id_legal_form = db.Column(db.String(500))
-    id_place_registered = db.Column(db.String(500))
-    id_registration_number = db.Column(db.String(500))
+    id_country_registered = db.Column(db.String(50))
+    id_legal_authority = db.Column(db.String(50))
+    id_legal_form = db.Column(db.String(50))
+    id_place_registered = db.Column(db.String(50))
+    id_registration_number = db.Column(db.String(50))
 
     # "kind": "string",
 
-    kind = db.Column(db.String(500))
+    kind = db.Column(db.String(50))
 
     # "links": {
     #     "self": "string",
     #     "statement": "string"
     # },
 
-    link_self = db.Column(db.String(500))
-    link_statement = db.Column(db.String(500))
+    link_self = db.Column(db.String(100))
+    link_statement = db.Column(db.String(100))
 
     # "name": "string",
 
-    name = db.Column(db.String(500))
+    name = db.Column(db.String(100))
 
     # "name_elements": { nullable
     #     "forename": "string",
@@ -84,14 +84,14 @@ class Person(db.Model):
     #     "title": "string"
     # },
 
-    forename = db.Column(db.String(500))
-    other_forenames = db.Column(db.String(500))
-    surname = db.Column(db.String(500))
-    title = db.Column(db.String(500))
+    forename = db.Column(db.String(50))
+    other_forenames = db.Column(db.String(50))
+    surname = db.Column(db.String(50))
+    title = db.Column(db.String(50))
 
     # "nationality": "string", nullable
 
-    nationality = db.Column(db.String(500))
+    nationality = db.Column(db.String(50))
 
     # "natures_of_control": [
     #     "string"
@@ -99,7 +99,7 @@ class Person(db.Model):
 
     # "notified_on": "date"
 
-    notified_on = db.Column(db.DateTime, nullable=False)
+    notified_on = db.Column(db.DateTime)
 
 
 def __repr__(self):

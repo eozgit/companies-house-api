@@ -29,10 +29,12 @@ RUN if [ "${INSTALL_NODE}" = "true" ]; then su vscode -c "source /usr/local/shar
 
 # Download data files
 # RUN wget -P /workspace/setup/ "http://download.companieshouse.gov.uk/BasicCompanyDataAsOneFile-2020-12-01.zip"
+# RUN wget -P /workspace/setup/ "http://download.companieshouse.gov.uk/persons-with-significant-control-snapshot-2020-12-08.zip"
 # RUN cd /workspace/setup && unzip *.zip
 
 # Install packages
 RUN pip install --upgrade pip
-RUN pip install flask_restx psycopg2 flask_sqlalchemy pylint-flask pylint-flask-sqlalchemy 
+RUN pip install flask_restx psycopg2 flask_sqlalchemy pylint-flask pylint-flask-sqlalchemy
+RUN pip install python-box
 
 ENV PYTHONPATH=/workspace

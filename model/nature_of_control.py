@@ -8,7 +8,7 @@ class NatureOfControl(db.Model):
         'person.id'), nullable=False)
     person = db.relationship('Person', backref=db.backref(
         'natures_of_control', lazy=True))
-    nature_of_control = db.Column(db.String(500))
+    nature_of_control = db.Column(db.String(100))
 
 
 def __repr__(self):
