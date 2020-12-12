@@ -1,9 +1,14 @@
 from flask_sqlalchemy import SQLAlchemy
 from .orm import db
 
+
 class Person(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    company_number = db.Column(db.String(10))
+
+    company_number = db.Column(db.String(8), db.ForeignKey(
+        'company.company_number'), nullable=False)
+    company = db.relationship('Company', backref=db.backref(
+        'people', lazy=True))
 
     # "address": {
     #     "address_line_1": "string",
@@ -19,11 +24,11 @@ class Person(db.Model):
 
     address_line_1 = db.Column(db.String(50))
     address_line_2 = db.Column(db.String(50))
-    address_care_of = db.Column(db.String(50))
+    address_care_of = db.Column(db.String(60))
     address_country = db.Column(db.String(50))
     address_locality = db.Column(db.String(50))
     address_po_box = db.Column(db.String(12))
-    address_postal_code = db.Column(db.String(12))
+    address_postal_code = db.Column(db.String(15))
     address_premises = db.Column(db.String(50))
     address_region = db.Column(db.String(50))
 

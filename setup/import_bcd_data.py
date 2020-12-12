@@ -1,11 +1,11 @@
 import psycopg2
 
-path = './setup/BasicCompanyDataAsOneFile-2020-12-01.csv'
+path = './setup/BasicCompanyData-2020-12-01-part4_6.csv'
 
 conn = psycopg2.connect('postgresql://postgres:postgres@localhost/postgres')
 cur = conn.cursor()
 copy_sql = """
-           COPY company_info FROM stdin WITH CSV HEADER
+           COPY company FROM stdin WITH CSV HEADER
            DELIMITER as ','
            """
 with open(path, 'r') as f:

@@ -2,7 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 from .orm import db
 
 
-class CompanyInfo(db.Model):
+class Company(db.Model):
     company_name = db.Column(db.String(160))
     company_number = db.Column(db.String(8), primary_key=True)
     reg_address_care_of = db.Column(db.String(82))

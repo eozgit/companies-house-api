@@ -1,10 +1,11 @@
 from box import Box
+from model.company import Company
 from model.person import Person
 from model.nature_of_control import NatureOfControl
 from model.orm import db
 from house import app
 
-psc_file = 'persons-with-significant-control-snapshot-2020-12-08.txt'
+psc_file = 'psc-snapshot-2020-12-12_10of18.txt'
 
 # all = ['individual-person-with-significant-control',
 #        'legal-person-person-with-significant-control',
@@ -27,10 +28,13 @@ with app.app_context():
             if record.data.kind not in kinds:
                 continue
 
+            company = Company.query.get(record.company_number)
+            if company is None:
+                continue
+
             data = record.data
-            person = Person(
-                company_number=record.company_number
-            )
+            person = Person()
+            person.company = company
 
             address = data.address
             if 'address_line_1' in address:
@@ -112,9 +116,7 @@ with app.app_context():
                 for nature in data.natures_of_control:
                     NatureOfControl(nature_of_control=nature, person=person)
 
-            db.session.add(person)
-
             count += 1
-            if count % 10000 == 0:
+            if count > 10000:
                 db.session.commit()
-                print(count)
+                break

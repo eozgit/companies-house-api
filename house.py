@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_restx import Api, Resource, fields
 from model.orm import db
-from model.company_info import CompanyInfo
+from model.company import Company
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost/postgres'
@@ -77,10 +77,10 @@ class House(Resource):
 
 
 @api.route('/company/<string:id>')
-class Company(Resource):
+class CompanyApi(Resource):
     @api.marshal_with(company)
     def get(self, id):
-        return CompanyInfo.query.get_or_404(id)
+        return Company.query.get_or_404(id)
 
 
 if __name__ == '__main__':

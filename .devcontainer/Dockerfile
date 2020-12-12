@@ -29,7 +29,9 @@ RUN if [ "${INSTALL_NODE}" = "true" ]; then su vscode -c "source /usr/local/shar
 
 # Download data files
 # RUN wget -P /workspace/setup/ "http://download.companieshouse.gov.uk/BasicCompanyDataAsOneFile-2020-12-01.zip"
+# RUN wget -P /workspace/setup/ "http://download.companieshouse.gov.uk/BasicCompanyData-2020-12-01-part4_6.zip"
 # RUN wget -P /workspace/setup/ "http://download.companieshouse.gov.uk/persons-with-significant-control-snapshot-2020-12-08.zip"
+# RUN wget -P /workspace/setup/ "http://download.companieshouse.gov.uk/psc-snapshot-2020-12-12_10of18.zip"
 # RUN cd /workspace/setup && unzip *.zip
 
 # Install packages
