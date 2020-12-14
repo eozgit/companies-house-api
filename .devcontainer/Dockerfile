@@ -36,7 +36,12 @@ RUN if [ "${INSTALL_NODE}" = "true" ]; then su vscode -c "source /usr/local/shar
 
 # Install packages
 RUN pip install --upgrade pip
-RUN pip install flask_restx psycopg2 flask_sqlalchemy pylint-flask pylint-flask-sqlalchemy
+RUN pip install flask_restx    
+RUN pip install psycopg2
+RUN pip install flask_sqlalchemy
+RUN pip install pylint-flask
+RUN pip install pylint-flask-sqlalchemy
 RUN pip install python-box
+RUN pip install flask-jwt-extended
 
 ENV PYTHONPATH=/workspace
