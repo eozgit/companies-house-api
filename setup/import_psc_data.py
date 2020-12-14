@@ -117,6 +117,6 @@ with app.app_context():
                     NatureOfControl(nature_of_control=nature, person=person)
 
             count += 1
-            if count > 10000:
+            if count > 1000:
                 db.session.commit()
                 break

@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from .orm import db
+from .person import Person
 
 
 class Company(db.Model):
@@ -58,6 +59,8 @@ class Company(db.Model):
     previous_name_10_company_name = db.Column(db.String(40))
     conf_stmt_next_due_date = db.Column(db.String(10)) # DateTime
     conf_stmt_last_made_up_date = db.Column(db.String(10)) # DateTime
+
+    people = db.relationship("Person", backref=db.backref("company", lazy=True), lazy=True, cascade="all,delete")
 
 
 def __repr__(self):

@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from .orm import db
+from .nature_of_control import NatureOfControl
 
 
 class Person(db.Model):
@@ -7,8 +8,6 @@ class Person(db.Model):
 
     company_number = db.Column(db.String(8), db.ForeignKey(
         'company.company_number'), nullable=False)
-    company = db.relationship('Company', backref=db.backref(
-        'people', lazy=True))
 
     # "address": {
     #     "address_line_1": "string",
@@ -101,6 +100,9 @@ class Person(db.Model):
     # "natures_of_control": [
     #     "string"
     # ],
+
+    natures_of_control = db.relationship(
+        'NatureOfControl', backref=db.backref('person', lazy=True), lazy=True, cascade="all,delete")
 
     # "notified_on": "date"
 

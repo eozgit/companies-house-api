@@ -43,16 +43,14 @@ class Login(Resource):
 @api.route('/company/<string:id>')
 class CompanyApi(Resource):
     @api.marshal_with(company)
-    @jwt_required
     def get(self, id):
         return Company.query.get_or_404(id)
 
     @api.marshal_with(company)
-    @jwt_required
     def put(self, id):
-        payload = Box(api.payload)
         company = Company.query.get_or_404(id)
 
+        payload = Box(api.payload)
         company.company_name = payload.companyName
         company.reg_address_address_line1 = payload.addressLine1
         company.reg_address_address_line2 = payload.addressLine2
@@ -65,6 +63,13 @@ class CompanyApi(Resource):
         company.country_of_origin = payload.countryOfOrigin
         company.sic_code_sic_text_1 = payload.sicCode
         company.uri = payload.uri
+        db.session.commit()
+        return company
+
+    @api.marshal_with(company)
+    def delete(self, id):
+        company = Company.query.get_or_404(id)
+        db.session.delete(company)
         db.session.commit()
         return company
 
