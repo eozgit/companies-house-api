@@ -1,7 +1,8 @@
 from flask_restx import Model, fields
+from .person import person_serializer
 
 
-company = Model('Company', {
+company_serializer = Model('Company', {
     'companyName': fields.String(required=True, attribute='company_name'),
     'companyNumber': fields.String(attribute='company_number'),
     'addressLine1': fields.String(attribute='reg_address_address_line1'),
@@ -16,4 +17,8 @@ company = Model('Company', {
     'incorporationDate': fields.String(attribute='incorporation_date'),
     'sicCode': fields.String(attribute='sic_code_sic_text_1'),
     'uri': fields.String()
+})
+
+company_with_people_serializer = company_serializer.inherit('CompanyWithPeople', {
+    'people': fields.List(fields.Nested(person_serializer))
 })

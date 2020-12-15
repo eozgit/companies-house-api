@@ -64,4 +64,4 @@ class Company(db.Model):
 
 
 def __repr__(self):
-    return '<CompanyInfo %r>' % self.company_name
+    return '<Company %r>' % self.company_name

@@ -1,10 +1,10 @@
 from flask import Flask
-from flask_restx import Api, Resource
+from flask_restx import Api, Resource, reqparse, marshal
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token
 from box import Box
 from model.orm import db
 from model.company import Company
-from serialize.company import company
+from serialize.company import company_serializer, company_with_people_serializer
 
 
 app = Flask(__name__)
@@ -18,7 +18,12 @@ api = Api(app)
 jwt = JWTManager(app)
 
 
-api.models[company.name] = company
+# api.models[company.name] = company
+
+
+parser_get_company = reqparse.RequestParser()
+parser_get_company.add_argument(
+    'extend', type=bool, location='args', default=False)
 
 
 @api.route('/login')
@@ -40,15 +45,17 @@ class Login(Resource):
         return {'access_token': access_token}, 200
 
 
-@api.route('/company/<string:id>')
+@api.route('/company/<string:company_number>')
 class CompanyApi(Resource):
-    @api.marshal_with(company)
-    def get(self, id):
-        return Company.query.get_or_404(id)
+    def get(self, company_number):
+        company = Company.query.get_or_404(company_number)
+        args = Box(parser_get_company.parse_args())
+        serializer = company_serializer if not args.extend else company_with_people_serializer
+        return marshal(company, serializer)
 
-    @api.marshal_with(company)
-    def put(self, id):
-        company = Company.query.get_or_404(id)
+    @api.marshal_with(company_serializer)
+    def put(self, company_number):
+        company = Company.query.get_or_404(company_number)
 
         payload = Box(api.payload)
         company.company_name = payload.companyName
@@ -66,9 +73,9 @@ class CompanyApi(Resource):
         db.session.commit()
         return company
 
-    @api.marshal_with(company)
-    def delete(self, id):
-        company = Company.query.get_or_404(id)
+    @api.marshal_with(company_serializer)
+    def delete(self, company_number):
+        company = Company.query.get_or_404(company_number)
         db.session.delete(company)
         db.session.commit()
         return company
