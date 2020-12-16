@@ -1,4 +1,3 @@
-from flask_sqlalchemy import SQLAlchemy
 from .orm import db
 from .nature_of_control import NatureOfControl
 
@@ -53,6 +52,5 @@ class Person(db.Model):
 
     notified_on = db.Column(db.DateTime)
 
-
-def __repr__(self):
-    return '<Person %r>' % self.name
+    def __repr__(self):
+        return '<Person %r>' % self.name
