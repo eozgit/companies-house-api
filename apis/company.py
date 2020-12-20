@@ -13,6 +13,33 @@ get_parser = reqparse.RequestParser()
 get_parser.add_argument(
     'extend', type=bool, location='args', default=False)
 
+list_parser = reqparse.RequestParser()
+list_parser.add_argument('page', type=int, location='args', default=1)
+list_parser.add_argument('limit', type=int, location='args', default=10)
+list_parser.add_argument('companyName', type=str, location='args')
+list_parser.add_argument('region', type=str, location='args')
+list_parser.add_argument('sicCode', type=int, location='args')
+
+
+@api.route('')
+class CompanyListApi(Resource):
+    @api.marshal_list_with(company_serializer)
+    def get(self):
+        args = Box(list_parser.parse_args())
+        query = Company.query
+        if args.companyName:
+            query = query.filter(
+                Company.company_name.startswith(args.companyName.upper()))
+        if args.region:
+            region = args.region.upper()
+            query = query.filter((Company.reg_address_post_town == region) | (
+                Company.reg_address_county == region))
+        if args.sicCode:
+            query = query.filter(
+                Company.sic_code_sic_text_1.startswith(str(args.sicCode)))
+
+        return query.order_by(Company.company_number.asc()).paginate(args.page, args.limit, True, 10).items
+
 
 @api.route('/<string:company_number>')
 class CompanyApi(Resource):
