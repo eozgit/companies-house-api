@@ -61,3 +61,14 @@ class PersonApi(Resource):
 
         db.session.commit()
         return person
+
+    @api.marshal_with(person_serializer)
+    def delete(self, company_number, person_id):
+        company = Company.query.get_or_404(company_number)
+        person = next(
+            (psc for psc in company.people if psc.id == person_id), None)
+        if not person:
+            api.abort(404, f'Person {person_id} doesn\'t exist')
+        db.session.delete(person)
+        db.session.commit()
+        return person, 204
