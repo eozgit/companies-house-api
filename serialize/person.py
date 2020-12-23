@@ -1,9 +1,9 @@
 from flask_restx import Model, fields
+from .nature_of_control import nature_of_control_serializer
 
 
 person_serializer = Model('Person', {
     'id': fields.Integer(attribute='id'),
-    'companyNumber': fields.String(attribute='company_number'),
     'addressLine1': fields.String(attribute='address_line_1'),
     'addressLine2': fields.String(attribute='address_line_2'),
     'addressCareOf': fields.String(attribute='address_care_of'),
@@ -33,6 +33,6 @@ person_serializer = Model('Person', {
     'surname': fields.String(attribute='surname'),
     'title': fields.String(attribute='title'),
     'nationality': fields.String(attribute='nationality'),
-    # 'naturesOfControl': fields.String(attribute='natures_of_control'),
-    'notifiedOn': fields.DateTime(attribute='notified_on'),
+    'naturesOfControl': fields.List(fields.Nested(nature_of_control_serializer), attribute='natures_of_control'),
+    'notifiedOn': fields.DateTime(attribute='notified_on')
 })
