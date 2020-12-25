@@ -30,8 +30,9 @@
 ##### Database setup
 - Download the company and people with significant control data files. Find the `wget` commands in the `Dockerfile` in  `.devcontainer` folder
 - `cd` to `setup` folder
-- run `python create_table.py` to initialize database
-- run `python import_bcd_data.py` to load company data into the database
-- run `python import_psc_data.py` to load people data into the database
+- Run `python create_table.py` to initialize database
+- Run `python import_bcd_data.py` to load company data into the database
+- Run `python import_psc_data.py` to load people data into the database
 ##### Start dev server
-- run `python app.py` to start the development server
+- Run `python app.py` to start the development server
+- Go to `http://localhost:5000/` for OpenAPI documentation
