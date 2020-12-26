@@ -43,5 +43,6 @@ RUN pip install pylint-flask
 RUN pip install pylint-flask-sqlalchemy
 RUN pip install python-box
 RUN pip install flask-jwt-extended
+RUN pip install pytest
 
 ENV PYTHONPATH=/workspace
