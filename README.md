@@ -12,6 +12,19 @@
 ---
 
 
+## Stack
+
+- Python
+- Flask
+- SqlAlchemy
+- Postgres
+- Pytest
+- Docker
+
+
+---
+
+
 ### Development environment setup
 
 #### Prerequisites
@@ -36,3 +49,5 @@
 ##### Start dev server
 - Run `python app.py` to start the development server
 - Go to `http://localhost:5000/` for OpenAPI documentation
+##### Run tests
+- Run `pytest` to run tests
