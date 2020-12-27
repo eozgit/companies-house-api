@@ -16,6 +16,7 @@ get_parser.add_argument(
 
 @api.route('/<string:company_number>')
 class CompanyApi(Resource):
+    @jwt_required
     def get(self, company_number):
         company = Company.query.get_or_404(company_number)
         args = Box(get_parser.parse_args())
@@ -23,6 +24,7 @@ class CompanyApi(Resource):
         return marshal(company, serializer)
 
     @api.marshal_with(company_serializer)
+    @jwt_required
     def put(self, company_number):
         company = Company.query.get_or_404(company_number)
 
@@ -43,6 +45,7 @@ class CompanyApi(Resource):
         return company
 
     @api.marshal_with(company_serializer)
+    @jwt_required
     def delete(self, company_number):
         company = Company.query.get_or_404(company_number)
         db.session.delete(company)

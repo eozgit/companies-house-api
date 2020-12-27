@@ -12,7 +12,7 @@ def auth():
             '/token', json={'username': 'test', 'password': 'test'})
         data = response.get_json()
         data = Box(data)
-        headers = {'Authentication': f'Bearer {data.access_token}'}
+        headers = {'Authorization': f'Bearer {data.access_token}'}
         yield (client, headers)
 
 
@@ -40,7 +40,8 @@ def test_company_search(auth):
 
 def test_company_create(auth):
     with app.app_context():
-        test_data = Company.query.filter(Company.company_name == 'TEST COMPANY LTD').all()
+        test_data = Company.query.filter(
+            Company.company_name == 'TEST COMPANY LTD').all()
         for c in test_data:
             db.session.delete(c)
         db.session.commit()
@@ -93,3 +94,33 @@ def test_company_update(auth):
     company = response.get_json()
     company = Box(company)
     assert company.uri.endswith(record.company_number)
+
+
+def test_company_read(auth):
+    with app.app_context():
+        record = Company.query.filter(
+            Company.company_name == 'TEST COMPANY LTD').first()
+
+    client, headers = auth
+    response = client.get(
+        f'/company/{record.company_number}', headers=headers)
+    company = response.get_json()
+    company = Box(company)
+    assert company.companyNumber == record.company_number
+    assert company.companyName == record.company_name
+
+
+def test_company_delete(auth):
+    with app.app_context():
+        record = Company.query.filter(
+            Company.company_name == 'TEST COMPANY LTD').first()
+
+    client, headers = auth
+    response = client.delete(
+        f'/company/{record.company_number}', headers=headers)
+
+    with app.app_context():
+        record = Company.query.filter(
+            Company.company_number == record.company_number).first()
+
+    assert record is None

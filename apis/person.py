@@ -11,6 +11,7 @@ from .company import api
 @api.route('/<string:company_number>/person/<int:person_id>')
 class PersonApi(Resource):
     @api.marshal_with(person_serializer)
+    @jwt_required
     def get(self, company_number, person_id):
         company = Company.query.get_or_404(company_number)
         person = next(
@@ -20,6 +21,7 @@ class PersonApi(Resource):
         return person
 
     @api.marshal_with(person_serializer)
+    @jwt_required
     def put(self, company_number, person_id):
         company = Company.query.get_or_404(company_number)
         person = next(
@@ -45,6 +47,7 @@ class PersonApi(Resource):
         return person
 
     @api.marshal_with(person_serializer)
+    @jwt_required
     def delete(self, company_number, person_id):
         company = Company.query.get_or_404(company_number)
         person = next(

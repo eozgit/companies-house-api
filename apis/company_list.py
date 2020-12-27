@@ -19,6 +19,7 @@ list_parser.add_argument('sicCode', type=int, location='args')
 @api.route('')
 class CompanyListApi(Resource):
     @api.marshal_list_with(company_serializer)
+    @jwt_required
     def get(self):
         args = Box(list_parser.parse_args())
         query = Company.query
@@ -38,6 +39,7 @@ class CompanyListApi(Resource):
         return query.order_by(Company.company_number.asc()).paginate(args.page, args.limit, True, 10).items
 
     @api.marshal_with(company_serializer)
+    @jwt_required
     def post(self):
         payload = Box(api.payload)
         company = Company(

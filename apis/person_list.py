@@ -19,6 +19,7 @@ psc_list_parser.add_argument('nationality', type=str, location='args')
 @api.route('/<string:company_number>/person')
 class PersonListApi(Resource):
     @api.marshal_list_with(person_serializer)
+    @jwt_required
     def get(self, company_number):
         args = Box(psc_list_parser.parse_args())
         company = Company.query.get_or_404(company_number)
@@ -29,6 +30,7 @@ class PersonListApi(Resource):
                 (not args.nationality or person.nationality.lower() == args.nationality.lower())]
 
     @api.marshal_with(person_serializer)
+    @jwt_required
     def post(self, company_number):
         company = Company.query.get_or_404(company_number)
         payload = Box(api.payload)
