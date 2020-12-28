@@ -1,18 +1,6 @@
-import pytest
 from box import Box
-from app import app
+from fixture_authorization import auth
 from model.orm import db
-
-
-@pytest.fixture
-def auth():
-    with app.test_client() as client:
-        response = client.post(
-            '/token', json={'username': 'test', 'password': 'test'})
-        data = response.get_json()
-        data = Box(data)
-        headers = {'Authorization': f'Bearer {data.access_token}'}
-        yield (client, headers)
 
 
 def test_psc_search(auth):
